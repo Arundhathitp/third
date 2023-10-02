@@ -1,13 +1,22 @@
 pipeline {
     agent any
-    
     stages {
-        stage('Build Docker Image') {
+        stage('Build') {
             steps {
-                // Build the Docker image using the specified path to the Dockerfile
-                script {
-                    docker.build('my-web-app:latest', '.')
-                }
+                echo 'Building the web application...'
+                // You can add build commands here if necessary
+            }
+        }
+        stage('Test') {
+            steps {
+                echo 'Running tests...'
+                // You can add test commands here if necessary
+            }
+        }
+        stage('Deploy') {
+            steps {
+                echo 'Deploying the web application...'
+                // You can add deployment commands here if necessary
             }
         }
     }
