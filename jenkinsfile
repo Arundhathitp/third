@@ -19,5 +19,10 @@ pipeline {
                 // You can add deployment commands here if necessary
             }
         }
+        script {
+                    docker.withRegistry('https://hub.docker.com', 'docker-hub-credentials') {
+                        def customImage = docker.build('arundhathitp/project:latest', '-f path/to/your/Dockerfile .')
+                        customImage.push()
+            }
     }
 }
