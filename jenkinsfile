@@ -1,0 +1,14 @@
+pipeline {
+    agent any
+    
+    stages {
+        stage('Build Docker Image') {
+            steps {
+                // Build the Docker image using the specified path to the Dockerfile
+                script {
+                    docker.build('my-web-app:latest', '.')
+                }
+            }
+        }
+    }
+}
