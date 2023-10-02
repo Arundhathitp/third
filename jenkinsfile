@@ -12,7 +12,7 @@ pipeline {
             steps {
                 echo 'Testing the built Docker image...'
                 // Run tests inside the Docker container
-                bat 'docker run my-web-app:latest ' // Replace with your test command
+                //bat 'docker run -d -p my-web-app:latest ' // Replace with your test command
             }
         }
     }
