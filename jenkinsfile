@@ -5,6 +5,8 @@ pipeline {
             steps {
                 echo 'Building the web application...'
                 // You can add build commands here if necessary
+                sh 'npm install'
+                sh 'npm run build'
             }
         }
         stage('Test') {
@@ -19,5 +21,14 @@ pipeline {
                 // You can add deployment commands here if necessary
             }
         }
+        stage('Push to Registry') {
+            steps {
+                echo 'Pushing the Docker image to the registry...'
+                script {
+                docker.withRegistry('https://hub.docker.com/repository/docker/arundhathitp/project') {
+                docker.image('my-web-app:latest').push()
+            }
+        }
     }
+}
 }
