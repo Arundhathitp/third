@@ -11,4 +11,4 @@ COPY script.js .
 
 # Expose the default Nginx port (80)
 EXPOSE 80
-
+EXPOSE 85
