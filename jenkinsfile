@@ -16,13 +16,13 @@ pipeline {
         stage('Deploy') {
             steps {
                 echo 'Deploying the web application...'
-                // You can add deployment commands here if necessary
+                script {
+                    docker.withRegistry('https://hub.docker.com', 'docker-hub-credentials') {
+                        def customImage = docker.build('arundhathitp/project:latest', '-f /Dockerfile .')
+                        customImage.push()
+                    }
+                }
             }
         }
-        script {
-                    docker.withRegistry('https://hub.docker.com', 'docker-hub-credentials') {
-                        def customImage = docker.build('arundhathitp/project:latest', '-f path/to/your/Dockerfile .')
-                        customImage.push()
-            }
     }
 }
