@@ -1,29 +1,15 @@
 pipeline {
-    agent any
-    stages {
-        stage('Build') {
-            steps {
-                echo 'Building the web application...'
-                sh 'docker build -t my-web-app:latest .'
-                // You can add build commands here if necessary
-            }
-        }
-        stage('Test') {
-            steps {
-                echo 'Running tests...'
-                // You can add test commands here if necessary
-            }
-        }
-        stage('Deploy') {
-            steps {
-                echo 'Deploying the web application...'
-                script {
-                    docker.withRegistry('https://hub.docker.com', 'docker-hub-credentials') {
-                        def customImage = docker.build('arundhathitp/project:latest', '-f /Dockerfile .')
-                        customImage.push()
-                    }
-                }
-            }
-        }
+  agent {
+    docker {
+      image 'abhishekf5/maven-abhishek-docker-agent:v1'
+      args '--user root -v /var/run/docker.sock:/var/run/docker.sock' // mount Docker socket to access the host's Docker daemon
     }
-}
+  }
+  stages {
+    stage('Build and Test') {
+      steps {
+        sh 'ls -ltr'
+        // build the project and create a JAR file
+        sh mvn clean package
+      }
+    }
