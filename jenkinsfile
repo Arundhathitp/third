@@ -4,8 +4,8 @@ pipeline {
         stage('Build') {
             steps {
                 echo 'Building the web application...'
-                sh 'docker build -t my-web-app:latest .'
-                // You can add build commands here if necessary
+                bat 'docker build -t my-web-app:latest .'
+                // You can add more build commands here if necessary
             }
         }
     }
