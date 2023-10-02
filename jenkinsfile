@@ -21,15 +21,5 @@ pipeline {
                 // You can add deployment commands here if necessary
             }
         }
-        stage('Push to Registry') {
-            steps {
-                echo 'Pushing the Docker image to the registry...'
-                script {
-                docker.withRegistry('https://hub.docker.com/repository/docker/arundhathitp/project') {
-                docker.image('my-web-app:latest').push()
-            }
-        }
     }
-}
-}
 }
