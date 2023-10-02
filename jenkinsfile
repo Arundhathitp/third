@@ -4,7 +4,7 @@ pipeline {
         stage('Build') {
             steps {
                 echo 'Building the web application...'
-                sh 'docker build -t my-web-app:latest -f /Dockerfile .' // Build Docker image
+                sh 'docker build -t my-web-app:latest -f /dockerfile .' // Build Docker image
                 // You can add build commands here if necessary
             }
         }
