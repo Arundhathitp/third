@@ -8,3 +8,5 @@ pipeline {
                 // You can add build commands here if necessary
             }
         }
+    }
+}
