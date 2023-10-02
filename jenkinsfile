@@ -15,5 +15,14 @@ pipeline {
                 //bat 'docker run -d -p my-web-app:latest ' // Replace with your test command
             }
         }
+        stage('Deploy') {
+             steps {
+                  echo 'Deploying the web application...'
+              script {
+                 docker.withRegistry('https://hub.docker.com/repository/docker/arundhathitp/project/', 'docker-hub-credentials') {
+                 def customImage = docker.build('arundhathitp/project:latest', '.')
+                 customImage.push()
+            }
+        }
     }
 }
