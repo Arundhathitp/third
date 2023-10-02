@@ -8,5 +8,12 @@ pipeline {
                 // You can add more build commands here if necessary
             }
         }
+        stage('Test') {
+            steps {
+                echo 'Testing the built Docker image...'
+                // Run tests inside the Docker container
+                bat 'docker run my-web-app:latest npm test' // Replace with your test command
+            }
+        }
     }
 }
