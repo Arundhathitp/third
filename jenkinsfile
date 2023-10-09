@@ -3,7 +3,7 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                echo 'Building the web application...'
+                echo 'Building the web application..'
                 bat 'docker build -t my-web-app:latest .'
                 // You can add more build commands here if necessary
             }
