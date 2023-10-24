@@ -3,7 +3,7 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                echo 'Building the web application...'
+                echo 'Building the web application..'
                 bat 'docker build -t my-web-app:latest .'
                 // You can add more build commands here if necessary
             }
@@ -15,43 +15,13 @@ pipeline {
                 // bat 'docker run -d -p my-web-app:latest ' // Replace with your test command
             }
         }
-        stage('Build and Push Docker Image') {
-            steps {
-                script {
-                    environment {
-                        DOCKER_IMAGE = "arundhathitp/project:${BUILD_NUMBER}"
-                        REGISTRY_CREDENTIALS = credentials('docker-hub-credentials')
-                    }
-                    echo "Building and pushing Docker image: ${DOCKER_IMAGE}"
-                    docker.withRegistry('https://index.docker.io/v1/', 'docker-hub-credentials') {
-                        def dockerImage = docker.build("${DOCKER_IMAGE}")
-                        dockerImage.push()
-                    }
-                }
-            }
-        }
         stage('Deploy') {
             steps {
                 echo 'Deploying the web application...'
-                // Add deployment steps here if necessary
-            }
-        }
-        stage('Update Deployment File') {
-            environment {
-                GIT_REPO_NAME = "third"
-                GIT_USER_NAME = "arundhathitp"
-            }
-            steps {
                 script {
-                    withCredentials([string(credentialsId: 'github', variable: 'GITHUB_TOKEN')]) {
-                        sh """
-                            git config user.email 'arundhathitp@gmail.com'
-                            git config user.name 'Aru'
-                            sed -i "s/replaceImageTag/\${BUILD_NUMBER}/g" Arundhathitp/four/deployment.yml
-                            git add Arundhathitp/four/deployment.yml
-                            git commit -m "Update deployment image to version \${BUILD_NUMBER}"
-                            git push https://\${GITHUB_TOKEN}@github.com/\${GIT_USER_NAME}/\${GIT_REPO_NAME}.git HEAD:main
-                        """
+                    docker.withRegistry('https://index.docker.io/v1/', 'docker-hub-credentials') {
+                        def customImage = docker.build('arundhathitp/project:latest', '.')
+                        customImage.push()
                     }
                 }
             }
