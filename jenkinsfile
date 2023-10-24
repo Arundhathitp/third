@@ -27,7 +27,7 @@ pipeline {
             }
         stage('Update Deployment File') {
         environment {
-            GIT_REPO_NAME = "third"
+            GIT_REPO_NAME = "four"
             GIT_USER_NAME = "arundhathitp"
         }
        stage('Update Deployment File') {
