@@ -24,12 +24,7 @@ pipeline {
                         customImage.push()
                     }
                 }
-            }
-        stage('Update Deployment File') {
-        environment {
-            GIT_REPO_NAME = "four"
-            GIT_USER_NAME = "arundhathitp"
-        }
+
        stage('Update Deployment File') {
     environment {
         GIT_REPO_NAME = "third"
